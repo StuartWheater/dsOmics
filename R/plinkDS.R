@@ -2,7 +2,7 @@
 #' 
 #' @description Performs GWAS using PLINK using shell command lines
 #' 
-#' @param client \code{ssh} SSH resource
+#' @param client \code{ssh} SSH resource or Shell resource
 #' @param ... \code{character vector} Arguments to pass to the PLINK software
 #' 
 #' @author Gonzalez, JR.
@@ -29,28 +29,24 @@ plinkDS <- function(client, ...){
   plink.command <- c(plink.command, "--noweb", "--out")
   if ('ShellResourceClient' %in% class(client)) {
     tempDir <- base::tempdir()
-  } else {
+  }
+  else {
     tempDir <- client$tempDir()
   }
   command <- c(plink.command, paste0(tempDir, '/out'))
   
   plink <- client$exec('plink1', command)
   
-  if ('SshResourceClient' %in% class(client)) {
+  if ('ShellResourceClient' %in% class(client)) {
+    client$copyFile(paste0(tempDir, '/out.*'))
+  }
+  else {
     client$downloadFile(paste0(tempDir, '/out.*'))
   }
   
   outs <- client$exec('ls', tempDir)$output
-
-  print('1]------')
-  print(outs)
-
   outs <- outs[-grep(".hh$|.log$|.nof$", outs)]
 
-  print('2]------')
-  print(outs)
-  print('--------')
-  
   if (length(outs)==0){
     ans <- plink$error
   }
@@ -66,7 +62,8 @@ plinkDS <- function(client, ...){
     
   if ('ShellResourceClient' %in% class(client)) {
     unlink(tempDir, recursive=TRUE)
-  } else {
+  }
+  else {
     client$removeTempDir()
   }
   client$close()
