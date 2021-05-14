@@ -61,7 +61,8 @@ plinkDS <- function(client, ...){
   }
     
   if ('ShellResourceClient' %in% class(client)) {
-    unlink(tempDir, recursive=TRUE)
+    print(tempDir)
+#    base::unlink(tempDir, recursive=TRUE)
   }
   else {
     client$removeTempDir()
