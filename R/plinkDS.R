@@ -52,6 +52,10 @@ plinkDS <- function(client, ...){
   }
   else {
     if (length(outs)==1) {
+      print('====')
+      print(outs)
+      print(getwd())
+      print('====')
       results <- readr::read_table(outs)
       }
     else {
@@ -61,7 +65,9 @@ plinkDS <- function(client, ...){
   }
     
   if ('ShellResourceClient' %in% class(client)) {
+    print('----')
     print(tempDir)
+    print('----')
 #    base::unlink(tempDir, recursive=TRUE)
   }
   else {
