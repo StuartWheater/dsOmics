@@ -36,7 +36,9 @@ plinkDS <- function(client, ...){
   
   plink <- client$exec('plink1', command)
   
-  client$downloadFile(paste0(tempDir, '/out.*'))  
+  if ('SshResourceClient' %in% class(client)) {
+    client$downloadFile(paste0(tempDir, '/out.*'))
+  }
   
   outs <- client$exec('ls', tempDir)$output
   outs <- outs[-grep(".hh$|.log$|.nof$", outs)]
