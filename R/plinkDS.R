@@ -14,7 +14,10 @@
 plinkDS <- function(client, ...){
   
   dots <- list(...)
-  
+
+  if (! any(c('ShellResourceClient', 'SshResourceClient') %in% class(client))) {
+    stop("Resource need to be either 'ShellResourceClient' or 'SshResourceClient'", call. = FALSE)
+  }
   
   dashedNames <- unlist(lapply(names(dots), function(n) {
     paste0("--", n)
@@ -24,7 +27,11 @@ plinkDS <- function(client, ...){
   plink.command <- unlist(strsplit(plink.command, " "))
   
   plink.command <- c(plink.command, "--noweb", "--out")
-  tempDir <- client$tempDir()
+  if ('ShellResourceClient' %in% class(client))) {
+    tempDir <- base::tempdir()
+  } else {
+    tempDir <- client$tempDir()
+  }
   command <- c(plink.command, paste0(tempDir, '/out'))
   
   plink <- client$exec('plink1', command)
@@ -47,7 +54,11 @@ plinkDS <- function(client, ...){
     ans <- list(results=results, plink.out = plink)
   }
     
-  client$removeTempDir()
+  if ('ShellResourceClient' %in% class(client))) {
+    unlink(tempDir, recursive=TRUE)
+  } else {
+    client$removeTempDir()
+  }
   client$close()
   
   return(ans)
