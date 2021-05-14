@@ -27,7 +27,7 @@ plinkDS <- function(client, ...){
   plink.command <- unlist(strsplit(plink.command, " "))
   
   plink.command <- c(plink.command, "--noweb", "--out")
-  if ('ShellResourceClient' %in% class(client))) {
+  if ('ShellResourceClient' %in% class(client)) {
     tempDir <- base::tempdir()
   } else {
     tempDir <- client$tempDir()
@@ -54,7 +54,7 @@ plinkDS <- function(client, ...){
     ans <- list(results=results, plink.out = plink)
   }
     
-  if ('ShellResourceClient' %in% class(client))) {
+  if ('ShellResourceClient' %in% class(client)) {
     unlink(tempDir, recursive=TRUE)
   } else {
     client$removeTempDir()
