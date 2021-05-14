@@ -36,6 +36,12 @@ plinkDS <- function(client, ...){
   command <- c(plink.command, paste0(tempDir, '/out'))
   
   plink <- client$exec('plink1', command)
+
+  print("---- tempDir ----")
+  print(base::list.files(tempDir))
+  print("----- getwd -----")
+  print(base::list.files(getwd()))
+  print("-----------------")
   
   if ('ShellResourceClient' %in% class(client)) {
     client$copyFile(paste0(tempDir, '/out.*'), to = base::getwd())
@@ -43,6 +49,12 @@ plinkDS <- function(client, ...){
   else {
     client$downloadFile(paste0(tempDir, '/out.*'))
   }
+  
+  print("---- tempDir ----")
+  print(base::list.files(tempDir))
+  print("----- getwd -----")
+  print(base::list.files(getwd()))
+  print("-----------------")
   
   outs <- client$exec('ls', tempDir)$output
   outs <- outs[-grep(".hh$|.log$|.nof$", outs)]
@@ -54,6 +66,7 @@ plinkDS <- function(client, ...){
     if (length(outs)==1) {
       print('====')
       print(outs)
+      print(tempDir)
       print(getwd())
       print('====')
       results <- readr::read_table(outs)
