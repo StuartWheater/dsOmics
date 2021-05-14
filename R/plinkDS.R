@@ -41,7 +41,15 @@ plinkDS <- function(client, ...){
   }
   
   outs <- client$exec('ls', tempDir)$output
+
+  print('1]------')
+  print(outs)
+
   outs <- outs[-grep(".hh$|.log$|.nof$", outs)]
+
+  print('2]------')
+  print(outs)
+  print('--------')
   
   if (length(outs)==0){
     ans <- plink$error
