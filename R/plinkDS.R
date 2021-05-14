@@ -38,7 +38,7 @@ plinkDS <- function(client, ...){
   plink <- client$exec('plink1', command)
   
   if ('ShellResourceClient' %in% class(client)) {
-    client$copyFile(paste0(tempDir, '/out.*'), to = getpwd())
+    client$copyFile(paste0(tempDir, '/out.*'), to = base::getwd())
   }
   else {
     client$downloadFile(paste0(tempDir, '/out.*'))
