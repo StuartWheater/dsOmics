@@ -37,24 +37,12 @@ plinkDS <- function(client, ...){
   
   plink <- client$exec('plink1', command)
 
-  print("---- tempDir ----")
-  print(base::list.files(tempDir))
-  print("----- getwd -----")
-  print(base::list.files(getwd()))
-  print("-----------------")
-  
   if ('ShellResourceClient' %in% class(client)) {
     client$copyFile(paste0(tempDir, '/out.*'), to = base::getwd())
   }
   else {
     client$downloadFile(paste0(tempDir, '/out.*'))
   }
-  
-  print("---- tempDir ----")
-  print(base::list.files(tempDir))
-  print("----- getwd -----")
-  print(base::list.files(getwd()))
-  print("-----------------")
   
   outs <- client$exec('ls', tempDir)$output
   outs <- outs[-grep(".hh$|.log$|.nof$", outs)]
@@ -64,11 +52,6 @@ plinkDS <- function(client, ...){
   }
   else {
     if (length(outs)==1) {
-      print('====')
-      print(outs)
-      print(tempDir)
-      print(getwd())
-      print('====')
       results <- readr::read_table(outs)
       }
     else {
@@ -78,10 +61,7 @@ plinkDS <- function(client, ...){
   }
     
   if ('ShellResourceClient' %in% class(client)) {
-    print('----')
-    print(tempDir)
-    print('----')
-#    base::unlink(tempDir, recursive=TRUE)
+    base::unlink(tempDir, recursive=TRUE)
   }
   else {
     client$removeTempDir()
