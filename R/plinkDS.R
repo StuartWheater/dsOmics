@@ -51,11 +51,9 @@ plinkDS <- function(client, ...){
     ans <- plink$error
   }
   else {
-    if (length(outs)==1) {
-      results <- readr::read_table(outs)
-      }
-    else {
-      results <- c("There are more than 1 table as output")
+    results <- list()
+    for (out in outs) {
+      results[[out]] <- readr::read_table(out, col_types='?c???????????????????')
     }
     ans <- list(results=results, plink.out = plink)
   }
