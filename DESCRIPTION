@@ -8,7 +8,7 @@ Authors@R: c(person("Yannick", "Marcon", , "yannick.marcon@obiba.org", role = "a
   person("Juan R.", "Gonzalez", ,"juanr.gonzalez@isglobal.org", role = c("aut", "cre")))
 Description: DataSHIELD server site Omic functions.
 Depends: R (>= 4.0.0),
-     resourcer,
+     resourcer (>= 1.2.0),
      tidyverse,
      magrittr
 Imports:
