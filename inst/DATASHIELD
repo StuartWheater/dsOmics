@@ -30,4 +30,5 @@ AssignMethods:
    addPhenoDataDS,
    removeOutliersDS,
    createRSEDS,
-   RNAseqPreprocDS
+   RNAseqPreprocDS,
+   plinkDS.assign
