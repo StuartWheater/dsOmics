@@ -1,8 +1,8 @@
 Package: dsOmics
 Type: Package
 Title: DataSHIELD server site Omic functions
-Version: 1.0.5-4
-Date: 2021-06-07
+Version: 1.0.6
+Date: 2021-06-10
 Authors@R: c(person("Yannick", "Marcon", , "yannick.marcon@obiba.org", role = "aut"),
   person("Xavier", "Esriba-Montagut", , "xavier.escriba@isglobal.org", role = "aut"),
   person("Juan R.", "Gonzalez", ,"juanr.gonzalez@isglobal.org", role = c("aut", "cre")))
@@ -14,7 +14,6 @@ Depends: R (>= 4.0.0),
 Imports:
      Biobase,
      SNPRelate (>= 1.26.0),
-     SNPassoc (>= 2.0.2-3),
      GENESIS, 
      GWASTools,
      GenomicRanges,
@@ -24,7 +23,8 @@ Imports:
      DESeq2,
      edgeR,
      dplyr,
-     readr
+     readr,
+     wkb
 License: MIT + file LICENSE
 biocViews: DNAMethylation, Microarray, Software, WholeGenome, GWAS, Non-disclosive
 LazyData: true
